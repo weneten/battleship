@@ -18,13 +18,13 @@ MonoBehaviour:
     <Size>k__BackingField: {x: 1, y: 4}
     <Amound>k__BackingField: 1
     <Prefab>k__BackingField: {fileID: 6064539738806558716, guid: cf5e244baaddb8f4d9b10f555ddce315, type: 3}
-  - <Name>k__BackingField: Kreuzer
-    <ID>k__BackingField: 1
-    <Size>k__BackingField: {x: 1, y: 3}
-    <Amound>k__BackingField: 2
-    <Prefab>k__BackingField: {fileID: 5358183261952650995, guid: 455b9f7d1f0f4864ba75c99c2cb516ec, type: 3}
   - <Name>k__BackingField: "Zerst\xF6rer"
     <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 1, y: 3}
+    <Amound>k__BackingField: 2
+    <Prefab>k__BackingField: {fileID: 6532042638533420300, guid: 00d7a74092e0e084faf6958630f2ea76, type: 3}
+  - <Name>k__BackingField: Kreuzer
+    <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 2}
     <Amound>k__BackingField: 3
     <Prefab>k__BackingField: {fileID: 5358183261952650995, guid: 455b9f7d1f0f4864ba75c99c2cb516ec, type: 3}
