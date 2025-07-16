@@ -51,8 +51,8 @@ public class PlacementSystem : MonoBehaviour
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
         GameObject newObject = Instantiate(database.objectData[selectedObjIndex].Prefab);
-        Vector3 offset = new Vector3(.5f, 0, .5f);
-        newObject.transform.position = grid.CellToWorld(gridPosition) + offset;
+        //maybe change mouseIndicator to Selected Object! <- nice to have! 
+        newObject.transform.position = grid.CellToWorld(gridPosition);
     }
 
     private void StopPlacement()
