@@ -20,9 +20,9 @@ public class InputManager : MonoBehaviour
     private void Update() {
         //check if Event is triggered
         if (Input.GetMouseButtonDown(0))
-            OnClicked.Invoke();
+            OnClicked?.Invoke();
         if (Input.GetKeyDown(KeyCode.Escape))
-            OnExit.Invoke();
+            OnExit?.Invoke();
     }
 
     /**
