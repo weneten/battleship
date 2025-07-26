@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main-menu.unity
+    guid: 75541d91a0e31c75f842d0162eb80dc7
+  - enabled: 1
+    path: Assets/Scenes/Host-game.unity
+    guid: d30c23333fd1e068491835b14321ed83
+  - enabled: 1
+    path: Assets/Scenes/Join-game.unity
+    guid: 0ab51d6560a8dfb57bb3985b4c51f33e
+  - enabled: 1
     path: Assets/Scenes/Schiffe-versenken-Game.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
