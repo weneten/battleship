@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private LayerMask placementLayermask;
 
-    //Create a Event listiner
+    //Create a Event listener
     public event Action OnClicked, OnExit;
 
     private void Update() {

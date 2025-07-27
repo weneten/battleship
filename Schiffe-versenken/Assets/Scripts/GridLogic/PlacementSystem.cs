@@ -14,21 +14,23 @@ public class PlacementSystem : MonoBehaviour
 
     [SerializeField]
     private ObjectDatabaseSO database;
-    private int selectedObjIndex = -1;
+    private int selectedObjIndex = -1; // only -1 if no object is selected
 
     [SerializeField]
     private GameObject gridVisualization;
 
     private GridData shipData;
+    private bool isRotated;
 
-    private Renderer previewRenderer;
+    private Renderer[] previewRenderer;
     private List<GameObject> placedGameObjects = new();
 
     private void Start()
     {
         StopPlacement();
         shipData = new();
-        previewRenderer = cellIndicator.GetComponentInChildren<Renderer>();
+        previewRenderer = cellIndicator.GetComponentsInChildren<Renderer>();
+        isRotated = false;
     }
 
     public void StartPlacement(int ID)
@@ -55,6 +57,7 @@ public class PlacementSystem : MonoBehaviour
         {
             return;
         }
+
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
@@ -64,7 +67,14 @@ public class PlacementSystem : MonoBehaviour
 
         GameObject newObject = Instantiate(database.objectData[selectedObjIndex].Prefab);
         //maybe change mouseIndicator to Selected Object! <- nice to have! 
-        newObject.transform.position = grid.CellToWorld(gridPosition);
+        //rotate and offset prefab <- TODO set the Grid logic to work with the placment offest... 
+        if (isRotated)
+        {
+            newObject.transform.Rotate(0.0f, 90.0f, 0.0f, Space.Self);
+            newObject.transform.position = grid.CellToWorld(gridPosition) + new Vector3(0.0f, 0.0f, 1.0f);
+        }
+        else
+            newObject.transform.position = grid.CellToWorld(gridPosition);
 
         //add obj to list
         placedGameObjects.Add(newObject);
@@ -93,6 +103,10 @@ public class PlacementSystem : MonoBehaviour
         cellIndicator.SetActive(false);
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
+
+        //switch back to original
+        rotateObject();
+        isRotated = false;
     }
 
     private void Update()
@@ -101,16 +115,42 @@ public class PlacementSystem : MonoBehaviour
         {
             return;
         }
+
+        //switch rotation of ship
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            rotateObject();
+        }
+
+
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
 
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjIndex);
-        previewRenderer.material.color = placementValidity ? Color.white : Color.red; //change Obj prefab!! (one child)
+        foreach (var renderer in previewRenderer)
+        {
+            renderer.material.color = placementValidity ? Color.white : Color.red;
+        }
+        // previewRenderer.material.color = placementValidity ? Color.white : Color.red; //change Obj prefab!! (one child)
 
         mouseIndicator.transform.position = mousePosition;
         Vector3 offset = new Vector3(.5f, 0, .5f);
         cellIndicator.transform.position = grid.CellToWorld(gridPosition) + offset;
     }
 
-
+    private void rotateObject()
+    {
+        //no obj is selected
+        if (selectedObjIndex < 0)
+            return;
+        
+        Debug.Log("rotate!");
+            Vector2Int temp = database.objectData[selectedObjIndex].Size;
+            Vector2Int invertSize = new();
+            invertSize.x = temp.y;
+            invertSize.y = temp.x;
+            //update in DB
+            database.objectData[selectedObjIndex].Size = invertSize;
+            isRotated = !isRotated; //flip isRotated bool
+    }
 }
